@@ -456,7 +456,7 @@ func TestCommitToVoteSetWithVotesForAnotherBlockOrNilBlock(t *testing.T) {
 		blockID3 = makeBlockID([]byte("blockhash3"), 10000, []byte("partshash"))
 
 		height = int64(3)
-		round  = 1
+		round  = 0
 	)
 
 	type commitVoteTest struct {
@@ -476,7 +476,7 @@ func TestCommitToVoteSetWithVotesForAnotherBlockOrNilBlock(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		voteSet, valSet, vals := randVoteSet(height-1, round, PrecommitType, tc.numValidators, 1)
+		voteSet, valSet, vals := randVoteSet(height, round, PrecommitType, tc.numValidators, 1)
 
 		vi := 0
 		for n := range tc.blockIDs {
@@ -484,7 +484,7 @@ func TestCommitToVoteSetWithVotesForAnotherBlockOrNilBlock(t *testing.T) {
 				vote := &Vote{
 					ValidatorAddress: vals[vi].GetPubKey().Address(),
 					ValidatorIndex:   vi,
-					Height:           height - 1,
+					Height:           height,
 					Round:            round,
 					Type:             PrecommitType,
 					BlockID:          tc.blockIDs[n],
@@ -500,7 +500,7 @@ func TestCommitToVoteSetWithVotesForAnotherBlockOrNilBlock(t *testing.T) {
 			commit := voteSet.MakeCommit() // panics without > 2/3 valid votes
 			assert.NotNil(t, commit)
 
-			err := valSet.VerifyCommit(voteSet.ChainID(), blockID, height-1, commit)
+			err := valSet.VerifyCommit(voteSet.ChainID(), blockID, height, commit)
 			assert.Nil(t, err)
 		} else {
 			assert.Panics(t, func() { voteSet.MakeCommit() })

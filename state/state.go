@@ -170,10 +170,8 @@ func MedianTime(commit *types.Commit, validators *types.ValidatorSet) time.Time 
 	for i, commitSig := range commit.Precommits {
 		if commitSig != nil {
 			_, validator := validators.GetByAddress(commitSig.ValidatorAddress)
-			if validator != nil {
-				totalVotingPower += validator.VotingPower
-				weightedTimes[i] = tmtime.NewWeightedTime(commitSig.Timestamp, validator.VotingPower)
-			}
+			totalVotingPower += validator.VotingPower
+			weightedTimes[i] = tmtime.NewWeightedTime(commitSig.Timestamp, validator.VotingPower)
 		}
 	}
 

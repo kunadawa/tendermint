@@ -119,7 +119,12 @@ func TestValidateBlockCommit(t *testing.T) {
 				chainID,
 			)
 			require.NoError(t, err, "height %d", height)
-			wrongHeightCommit := types.NewCommit(wrongHeightVote.Height, wrongHeightVote.Round, state.LastBlockID, []*types.CommitSig{wrongHeightVote.CommitSig()})
+			wrongHeightCommit := types.NewCommit(
+				wrongHeightVote.Height,
+				wrongHeightVote.Round,
+				state.LastBlockID,
+				[]*types.CommitSig{wrongHeightVote.CommitSig()},
+			)
 			block, _ := state.MakeBlock(height, makeTxs(height), wrongHeightCommit, nil, proposerAddr)
 			err = blockExec.ValidateBlock(state, block)
 			_, isErrInvalidCommitHeight := err.(types.ErrInvalidCommitHeight)
