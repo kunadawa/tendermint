@@ -64,11 +64,11 @@ func TestBeginBlockValidators(t *testing.T) {
 
 	var (
 		now        = tmtime.Now()
-		commitSig0 = types.NewCommitSigCommit(
+		commitSig0 = types.NewCommitSigForBlock(
 			[]byte("Signature1"),
 			state.Validators.Validators[0].Address,
 			now)
-		commitSig1 = types.NewCommitSigCommit(
+		commitSig1 = types.NewCommitSigForBlock(
 			[]byte("Signature2"),
 			state.Validators.Validators[1].Address,
 			now)
@@ -143,11 +143,11 @@ func TestBeginBlockByzantineValidators(t *testing.T) {
 	}
 
 	var (
-		commitSig0 = types.NewCommitSigCommit(
+		commitSig0 = types.NewCommitSigForBlock(
 			[]byte("Signature1"),
 			state.Validators.Validators[0].Address,
 			now)
-		commitSig1 = types.NewCommitSigCommit(
+		commitSig1 = types.NewCommitSigForBlock(
 			[]byte("Signature2"),
 			state.Validators.Validators[1].Address,
 			now)

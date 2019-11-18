@@ -456,8 +456,8 @@ type CommitSig struct {
 	Signature        []byte      `json:"signature"`
 }
 
-// NewCommitSigCommit returns new CommitSig with BlockIDFlagCommit.
-func NewCommitSigCommit(signature []byte, valAddr Address, ts time.Time) *CommitSig {
+// NewCommitSigForBlock returns new CommitSig with BlockIDFlagCommit.
+func NewCommitSigForBlock(signature []byte, valAddr Address, ts time.Time) *CommitSig {
 	return &CommitSig{
 		BlockIDFlag:      BlockIDFlagCommit,
 		ValidatorAddress: valAddr,

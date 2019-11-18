@@ -619,8 +619,7 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		// Validate signature.
 		precommitSignBytes := commit.VoteSignBytes(chainID, idx)
 		if !val.PubKey.VerifyBytes(precommitSignBytes, precommit.Signature) {
-			return fmt.Errorf("wrong signature: want %X, got %X",
-				precommitSignBytes, precommit.Signature)
+			return fmt.Errorf("wrong signature (#%d): %X", idx, precommit.Signature)
 		}
 		// Good precommit!
 		if blockID.Equals(precommit.BlockID(commit.BlockID)) {
@@ -695,8 +694,7 @@ func (vals *ValidatorSet) VerifyFutureCommit(newSet *ValidatorSet, chainID strin
 		// Validate signature.
 		precommitSignBytes := commit.VoteSignBytes(chainID, idx)
 		if !val.PubKey.VerifyBytes(precommitSignBytes, precommit.Signature) {
-			return errors.Errorf("wrong signature: want %X, got %X",
-				precommitSignBytes, precommit.Signature)
+			return errors.Errorf("wrong signature (#%d): %X", idx, precommit.Signature)
 		}
 		// Good precommit!
 		if blockID.Equals(precommit.BlockID(commit.BlockID)) {
